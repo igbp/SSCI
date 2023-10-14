@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-
+import os
 from a2c_ppo_acktr_article import utils
 from a2c_ppo_acktr_article.envs import make_vec_envs
 from a2c_ppo_acktr_article.action_scaling import scale_action
@@ -57,21 +57,22 @@ def viz_rollout():
 def save_expert_demo():
     device = 'cuda:0'
     args = get_args()
-    eval_log_dir = '/home/giovani/article/trained_models/ppo_article/'
-    expert_dir = '/home/giovani/article/expert/batch_' + args.distribution
+    path = os.getcwd() + '/article'
+    eval_log_dir = path + '/eval'
+    expert_dir = path + '/expert/batch_' + args.distribution
+    os.makedirs(path, exist_ok=True)
+    os.makedirs(eval_log_dir, exist_ok=True)
+    os.makedirs(expert_dir, exist_ok=True)
     idx = 2
 
-    dir_path = '/home/giovani/article/trained_models/ppo_article/'
-    file_name = 'CarRacing-v0_seed=' + str(idx) + '_nsteps_=500_d='\
-                +args.distribution+'_nup=1249.pt'
-
-    seed = idx * 10 + 20
+    dir_path = path
+    file_name = 'article/trained_models/agents_beta/CarRacing-v0_seed=2_nsteps_=500_d=beta_nup=1249.pt'
+    seed = 2
     print(f'seed={seed}')
 
     deterministic = True
 
-    path = dir_path + file_name
-    actor_critic, obs_rms, args = torch.load(path, map_location=device)
+    actor_critic, obs_rms, args = torch.load(file_name, map_location=device)
     args.num_processes = 1
 
     eval_envs = make_vec_envs(args.env_name, seed, args.num_processes,

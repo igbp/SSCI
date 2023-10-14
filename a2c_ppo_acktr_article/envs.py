@@ -131,7 +131,7 @@ class TimeLimitMask(gym.Wrapper):
         return obs, rew, done, info
 
     def reset(self, **kwargs):
-        return self.env.reset(**kwargs)
+        return self.env.reset()
 
 
 # Can be used to test recurrent policies for Reacher-v2
