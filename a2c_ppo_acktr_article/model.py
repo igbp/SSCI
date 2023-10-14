@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from a2c_ppo_acktr_article.distributions import Bernoulli, Categorical, DiagGaussian, DiagBeta, DiagGaussUnitSTD
-from a2c_ppo_acktr.utils import init
+from a2c_ppo_acktr_article.utils import init
 
 
 class Flatten(nn.Module):
